@@ -6,7 +6,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
-#include <windows.h>
+#include <mutex> 
 
 enum LogLevel { LOG_LEVEL_INFO, LOG_LEVEL_WARNING, LOG_LEVEL_ERROR };
 
@@ -21,11 +21,6 @@ public:
     template <typename T>
     LogStream& operator<<(const T& value) {
         m_stream << value;
-        return *this;
-    }
-
-    LogStream& operator<<(const System::UnicodeString& value) {
-        m_stream << AnsiString(value);
         return *this;
     }
 
@@ -50,13 +45,12 @@ private:
     Logger();
     ~Logger();
     Logger(const Logger&);
-    Logger& operator=(const Logger&);
 
     std::string get_level_string(LogLevel level);
     std::string get_current_timestamp();
 
     std::ofstream m_log_file;
-    CRITICAL_SECTION m_critSection;
+    std::mutex m_mutex;
 };
 
 

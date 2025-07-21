@@ -2,6 +2,7 @@
 #include "Logger.h"
 #include <iostream>
 #include <iomanip>
+#include <chrono> // C++ handle timstamp
 
 LogStream::LogStream(Logger& logger, LogLevel level, int line, const char* function)
 	: m_logger_ref(logger), m_level(level), m_line(line), m_function(function) {}
@@ -17,30 +18,26 @@ Logger& Logger::get_instance() {
     return *instance;
 }
 Logger::Logger() {
-    InitializeCriticalSection(&m_critSection);
     m_log_file.open("log.txt", std::ios::out | std::ios::app);
 }
 Logger::~Logger() {
     if (m_log_file.is_open()) { m_log_file.close(); }
-    DeleteCriticalSection(&m_critSection);
 }
 void Logger::set_log_file(const std::string& filename) {
-    EnterCriticalSection(&m_critSection);
+    std::lock_guard<std::mutex> lock(m_mutex);
     if (m_log_file.is_open()) { m_log_file.close(); }
     m_log_file.open(filename.c_str(), std::ios::out | std::ios::app);
-    LeaveCriticalSection(&m_critSection);
 }
 
 
 void Logger::log(LogLevel level, int line, const char* function, const std::string& message) {
-    EnterCriticalSection(&m_critSection);
+    std::lock_guard<std::mutex> lock(m_mutex);
     if (m_log_file.is_open()) {
         m_log_file << get_current_timestamp()
                    << " " << get_level_string(level)
 				   << " [" << function << ":" << line << "]"
 				   << " " << message << std::endl;
     }
-	LeaveCriticalSection(&m_critSection);
 }
 
 std::string Logger::get_level_string(LogLevel level) {
@@ -52,9 +49,10 @@ std::string Logger::get_level_string(LogLevel level) {
     }
 }
 std::string Logger::get_current_timestamp() {
-    SYSTEMTIME st;
-    GetLocalTime(&st);
+    auto now = std::chrono::system_clock::now();
+    auto in_time_t = std::chrono::system_clock::to_time_t(now);
+
     std::stringstream ss;
-    ss << st.wYear << "-" << std::setw(2) << std::setfill('0') << st.wMonth << "-" << std::setw(2) << std::setfill('0') << st.wDay << " " << std::setw(2) << std::setfill('0') << st.wHour << ":" << std::setw(2) << std::setfill('0') << st.wMinute << ":" << std::setw(2) << std::setfill('0') << st.wSecond;
+    ss << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %X");
     return ss.str();
 }
