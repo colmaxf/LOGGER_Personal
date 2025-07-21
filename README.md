@@ -20,19 +20,19 @@ Nhiều cấp độ Log: Hỗ trợ các cấp độ khác nhau để phân lo�
 # Hướng dẫn sử dụng
 1. Include file log vào dự án
   #include "Logger.h"
-2. Ghi log cơ bản
-  int main() {
-    // Thay đổi file log thành "my_app_log.txt"
-     Logger::get_instance().set_log_file("my_app_log.txt");
-    LOG_INFO << "Log này sẽ được ghi vào file my_app_log.txt";
-    return 0;
+2. Ghi log cơ bản  
+  int main() {  
+    // Thay đổi file log thành "my_app_log.txt"  
+     Logger::get_instance().set_log_file("my_app_log.txt");  
+    LOG_INFO << "Log này sẽ được ghi vào file my_app_log.txt";  
+    return 0;  
   }
 ******************************************************************************************************
 # Định dạng Log Output
-Các dòng log trong file sẽ có định dạng như sau:
+Các dòng log trong file sẽ có định dạng như sau:  
 Timestamp [Cấp Độ] [TênHàm:SốDòng] Nội dung thông điệp
 ******************************************************************************************************
 # Biên dịch
-Trên Linux (Ubuntu): g++ your_main_file.cpp Logger.cpp -o my_app -std=c++11 -pthread
+Trên Linux (Ubuntu): g++ your_main_file.cpp Logger.cpp -o my_app -std=c++11 -pthread  
 Trên Windows (với MinGW/g++): g++ your_main_file.cpp Logger.cpp -o my_app.exe -std=c++11
   
