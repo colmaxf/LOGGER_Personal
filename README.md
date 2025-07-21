@@ -15,7 +15,7 @@ Nhiều cấp độ Log: Hỗ trợ các cấp độ khác nhau để phân lo�
 # Yêu cầu dependency
 1. Một trình biên dịch C++ hỗ trợ C++11 hoặc mới hơn (ví dụ: GCC, Clang, MSVC).
 2. Khi biên dịch trên Linux, cần thêm cờ -pthread.
-3. Thư viện chuẩn C++: <fstream>, <sstream>, <string>, v.v.
+3. Thư viện chuẩn C++: fstream, sstream, string, v.v.
 ******************************************************************************************************
 # Hướng dẫn sử dụng
 1. Include file log vào dự án
