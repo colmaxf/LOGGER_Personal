@@ -12,10 +12,10 @@
 Nhiều cấp độ Log: Hỗ trợ các cấp độ khác nhau để phân loại mức độ quan trọng của thông điệp.
 ******************************************************************************************************
 # Yêu cầu dependency
-Thư viện này được viết cho môi trường Windows và có các phụ thuộc sau:
-1.Windows API (windows.h): Cho việc xử lý đa luồng và lấy thời gian hệ thống.
-2. C++ Builder/VCL (System.hpp): Cho kiểu dữ liệu System::UnicodeString. Nếu bạn không dùng C++ Builder, bạn cần xóa hoặc sửa lại phần operator<< cho UnicodeString.
-3. Thư viện chuẩn C++: <fstream>, <sstream>, <string>, v.v.
+Thư viện này được viết cho môi trường Windows và có các phụ thuộc sau:  
+1.Windows API (windows.h): Cho việc xử lý đa luồng và lấy thời gian hệ thống.  
+2. C++ Builder/VCL (System.hpp): Cho kiểu dữ liệu System::UnicodeString. Nếu bạn không dùng C++ Builder, bạn cần xóa hoặc sửa lại phần operator<< cho UnicodeString.  
+3. Thư viện chuẩn C++: fstream, sstream, string, v.v.  
 ******************************************************************************************************
 # Hướng dẫn sử dụng
 1. Include file log vào dự án
