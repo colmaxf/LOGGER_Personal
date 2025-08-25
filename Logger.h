@@ -1,4 +1,3 @@
-
 #ifndef LOGGER_H
 #define LOGGER_H
 
@@ -57,6 +56,12 @@ private:
 
     std::ofstream m_log_file;
     CRITICAL_SECTION m_critSection;
+
+    std::string m_current_date_string;
+
+    void update_log_file_if_needed();
+    void cleanup_old_logs();
+    std::string get_current_date_as_string();
 };
 
 
