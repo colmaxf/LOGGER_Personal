@@ -41,6 +41,12 @@ public:
 
     void log(LogLevel level, int line, const char* function, const std::string& message);
 
+    /**
+     * @brief Đặt thư mục nơi các file log sẽ được lưu trữ.
+     * @param path Đường dẫn thư mục (ví dụ: "loglib/log"). Thư mục sẽ được tạo nếu chưa tồn tại.
+     */
+    void set_log_directory(const std::string& path);
+
 private:
     Logger();
     ~Logger();
@@ -51,6 +57,14 @@ private:
 
     std::ofstream m_log_file;
     std::mutex m_mutex;
+
+    void create_directory_if_not_exists(const std::string& path);
+    std::string m_log_directory;
+    std::string m_current_date_string;
+
+    void update_log_file_if_needed();
+    void cleanup_old_logs();
+    std::string get_current_date_as_string();
 };
 
 
